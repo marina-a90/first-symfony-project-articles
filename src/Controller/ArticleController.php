@@ -90,6 +90,40 @@
         }
 
         /**
+         * @Route("/article/edit/{id}", name="edit_article")
+         * @Method({"GET", "POST"})
+         */
+        public function edit(Request $request, $id) {
+            $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+
+            $form = $this->createFormBuilder($article)
+                ->add('title', TextType::class, array(
+                    'attr' => array('class' => 'form-control')))
+                ->add('body', TextareaType::class, array(
+                    'required' => false, 
+                    // everything required by default
+                    'attr' => array('class' => 'form-control')))
+                ->add('save', SubmitType::class, array(
+                    'label' => 'Edit article', 
+                    'attr' => array('class' => 'btn btn-primary mt-3 mb-3')))
+                ->getForm();
+
+            //iznad samo loadovanje forme, dalje handle-ovanje
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                return $this->redirectToRoute('home');
+            }
+
+            return $this->render('articles/edit.html.twig', array(
+                'form' => $form->createView()
+            ));
+        }
+
+        /**
          * @Route("/article/{id}", name="article_show")
          */
         // show mora biti ispod jer je bitan redosled citanja
