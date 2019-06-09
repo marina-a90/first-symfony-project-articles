@@ -8,7 +8,9 @@
     {% if articles %}
         <ul>
             {% for article in articles %}
-                <li>{{ article }}</li>
+                <a href="/article/{{ article.id }}">
+                    <li>{{ article.title }}</li>
+                </a>
             {% endfor %}
         </ul>
     {% else %}
