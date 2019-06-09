@@ -11,7 +11,7 @@
 
     class ArticleController extends Controller {
         /**
-         * @Route("/")
+         * @Route("/", name="home")
          * @Method({"GET"})
          */
         public function index() {
@@ -45,4 +45,14 @@
         //     // da vidim response - inace nema funkc, nego samo da indikuje da je zapravo snimljen clanak
         //     return new Response('saved an article with id: ' . $article->getId());
         // }
+
+        /**
+         * @Route("/article/{id}", name="article_show")
+         */
+        public function show($id) {
+            $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+
+            return $this->render('articles/show.html.twig', array('article' => $article));
+        }
+
     }
