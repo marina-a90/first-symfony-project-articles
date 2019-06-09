@@ -13,7 +13,11 @@
          * @Method({"GET"})
          */
         public function index() {
+
+            // hard-coded data 
+            $articles = ['article 1', 'article 2', 'article 3'];
+
             // return new Response('<html><body>Cao Toske!</body></html>');
-            return $this->render('articles/index.html.twig');
+            return $this->render('articles/index.html.twig', array('name' => 'Marina', 'articles' => $articles));
         }
     }
