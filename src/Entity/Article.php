@@ -40,6 +40,8 @@ class Article
     public function setTitle($title) 
     {
         $this->title = $title;
+
+        return $this;
     }
 
     public function getBody() 
@@ -50,5 +52,7 @@ class Article
     public function setBody($body) 
     {
         $this->body = $body;
+
+        return $this;
     }
 }
